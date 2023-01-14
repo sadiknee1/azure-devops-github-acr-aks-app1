@@ -17,3 +17,22 @@ steps:
     repository: 'aa'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
+- task: Kubernetes@1
+  inputs:
+    connectionType: 'Kubernetes Service Connection'
+    kubernetesServiceEndpoint: 'svcaks'
+    namespace: 'default'
+    command: 'create'
+    secretType: 'dockerRegistry'
+    containerRegistryType: 'Azure Container Registry'
+    azureSubscriptionEndpointForSecrets: 'Azure subscription 1(5c17647c-c9e5-4923-88a9-c0d9c78ab8cd)'
+    azureContainerRegistry: 'acrneo1.azurecr.io'
+    secretName: 'sec1'
+
+- task: KubernetesManifest@0
+  inputs:
+    action: 'deploy'
+    kubernetesServiceConnection: 'svcaks'
+    namespace: 'default'
+    manifests: '$(Pipeline.Workspace)/manifests/'
+    imagePullSecrets: 'sec1'
