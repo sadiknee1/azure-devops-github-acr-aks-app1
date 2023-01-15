@@ -71,6 +71,7 @@ stages:
         deploy:
           steps:
           - task: DownloadBuildArtifacts@1
+            displayName: Download manifest
             inputs:
               buildType: 'current'
               downloadType: 'single'
@@ -78,6 +79,7 @@ stages:
               downloadPath: '$(System.ArtifactsDirectory)'
 
           - task: Bash@3
+            displayName: Show directory and files
             inputs:
               targetType: 'inline'
               script: |
@@ -87,6 +89,7 @@ stages:
                 pwd
                 ls -ltr
           - task: KubernetesManifest@0
+            displayName: Create Secret
             inputs:
               action: 'createSecret'
               kubernetesServiceConnection: 'aksNeo1-default'
@@ -96,6 +99,7 @@ stages:
               dockerRegistryEndpoint: 'acrNeo1'
 
           - task: KubernetesManifest@0
+            displayName: Deploy manifest
             inputs:
               action: 'deploy'
               kubernetesServiceConnection: 'aksNeo1-default'
