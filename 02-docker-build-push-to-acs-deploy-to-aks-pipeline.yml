@@ -91,7 +91,7 @@ stages:
               action: 'deploy'
               kubernetesServiceConnection: 'aksNeo1-default'
               namespace: 'default'
-              manifests: '$(Pipeline.Workspace)/manifests/01-Deployment-and-LoadBalancer-Service.yml'
+              manifests: '$(Pipeline.Workspace)/01-Deployment-and-LoadBalancer-Service.yml'
               containers: '$(containerRegistry)/$(imageRepository):$(tag)'
               imagePullSecrets: 'aksdevopsacr1755e8d5-auth'
 
