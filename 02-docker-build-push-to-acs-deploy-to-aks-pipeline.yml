@@ -77,6 +77,15 @@ stages:
               artifactName: 'drop'
               downloadPath: '$(System.ArtifactsDirectory)'
 
+          - task: Bash@3
+            inputs:
+              targetType: 'inline'
+              script: |
+                # Write your commands here
+                
+                echo 'Hello world'
+                pwd
+                ls -ltr
           - task: KubernetesManifest@0
             inputs:
               action: 'createSecret'
